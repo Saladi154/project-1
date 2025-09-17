@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering Flowchart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .step {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .step button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .step button:hover {
+            background-color: #45a049;
+        }
+
+        .payment-options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .payment-option {
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-option:hover {
+            background-color: #c2c2c2;
+        }
+
+        .flowchart-end {
+            display: none;
+            text-align: center;
+        }
+
+        .start {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="start step">
+            <h2>Start</h2>
+            <button onclick="goToStep('login')">Proceed</button>
+        </div>
+
+        <div id="login" class="step" style="display:none;">
+            <h2>Log In</h2>
+            <button onclick="goToStep('location')">Proceed</button>
+        </div>
+
+        <div id="location" class="step" style="display:none;">
+            <h2>Access User Location</h2>
+            <button onclick="goToStep('restaurantDetails')">Proceed</button>
+        </div>
+
+        <div id="restaurantDetails" class="step" style="display:none;">
+            <h2>Restaurant Details and Food Selection</h2>
+            <button onclick="goToStep('paymentMode')">Proceed</button>
+        </div>
+
+        <div id="paymentMode" class="step" style="display:none;">
+            <h2>Choose Payment Mode</h2>
+            <div class="payment-options">
+                <div class="payment-option" onclick="goToStep('confirmOrder')">Cash on Delivery</div>
+                <div class="payment-option" onclick="goToStep('confirmOrder')">UPI or Credit Cards</div>
+            </div>
+        </div>
+
+        <div id="confirmOrder" class="step" style="display:none;">
+            <h2>Order Confirmed</h2>
+            <button onclick="goToStep('trackOrder')">Proceed</button>
+        </div>
+
+        <div id="trackOrder" class="step" style="display:none;">
+            <h2>Track Order</h2>
+            <button onclick="goToStep('foodDelivered')">Proceed</button>
+        </div>
+
+        <div id="foodDelivered" class="step" style="display:none;">
+            <h2>Food Delivered</h2>
+            <button onclick="goToStep('end')">End</button>
+        </div>
+
+        <div id="end" class="flowchart-end">
+            <h2>End</h2>
+            <p>Thank you for using our service!</p>
+        </div>
+    </div>
+
+    <script>
+        function goToStep(stepId) {
+            // Hide all steps
+            var steps = document.querySelectorAll('.step');
+            steps.forEach(function (step) {
+                step.style.display = 'none';
+            });
+
+            // Show the selected step
+            document.getElementById(stepId).style.display = 'block';
+
+            // Hide the start step after proceeding
+            if (stepId !== 'login') {
+                document.querySelector('.start').style.display = 'none';
+            }
+
+            // Show the end message after the last step
+            if (stepId === 'foodDelivered') {
+                document.getElementById('end').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>
